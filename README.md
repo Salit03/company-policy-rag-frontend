@@ -1,41 +1,31 @@
-# Company Policy Assistant — Frontend
+# Company Policy Assistant — RAG Application
 
-A simple Streamlit chat UI connected to the deployed FastAPI RAG backend.
+A simple AI-powered application that answers questions about a company policy document. Instead of searching through a long PDF manually, users can ask questions in plain English and get answers based on the document.
 
-## Technology used
+I built this project to understand how Retrieval-Augmented Generation (RAG) works and how to connect a Python frontend with a deployed backend API.
 
-- **Streamlit**: builds the user interface in Python; no separate HTML/CSS/React setup needed.
-- **Requests**: sends the user's question to the FastAPI backend.
-- **FastAPI backend**: `https://company-policy-rag-52nq.onrender.com`
-- The frontend calls `POST /ask` with JSON: `{"question": "..."}`.
+## What it does
 
-## Run locally on your Mac
+- Lets users ask questions about company policies through a chat interface.
+- Retrieves relevant information from the policy document using semantic search.
+- Uses Gemini to generate answers based on the retrieved context.
+- Returns a fallback response when the available policy information is insufficient.
+- Connects a Streamlit frontend to a FastAPI backend.
 
-1. Download and unzip this folder.
-2. Open the folder in VS Code.
-3. Open the terminal in this folder.
-4. (Recommended) create and activate a virtual environment:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-5. Install packages:
-   ```bash
-   python -m pip install -r requirements.txt
-   ```
-6. Start the frontend:
-   ```bash
-   streamlit run app.py
-   ```
-7. Open the local URL Streamlit shows, usually `http://localhost:8501`.
+## Tech Stack
 
-The backend URL is already set to the deployed API. You do not need to put the Gemini API key in the frontend; the key stays in the backend's Render environment variables.
+- **Python** — application logic
+- **Streamlit** — frontend and chat interface
+- **Requests** — communication with the backend API
+- **FastAPI** — backend REST API
+- **Gemini** — answer generation and embeddings
+- **ChromaDB** — vector storage and similarity search
+- **Docker** — backend containerization
+- **Render** — backend deployment
 
-## Deploy the frontend
+## How it works
 
-Push these frontend files to a GitHub repository, then create a Streamlit Community Cloud app from that repository, selecting `app.py` as the main file. If you use another host, set the start command to `streamlit run app.py --server.address 0.0.0.0 --server.port $PORT` if required by that host.
-
-## Important
-
-- Do not add your Gemini API key to this frontend or commit it to GitHub.
-- The frontend is a chat interface only. The RAG logic, embeddings, ChromaDB, and Gemini calls remain in the backend.
+1. The company policy PDF is loaded and its text is extracted.
+2. The text is divided into smaller chunks.
+3. Each chunk is converted into an embedding.
+4. The embeddings
